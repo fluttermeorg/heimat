@@ -1,0 +1,47 @@
+name: heimat
+description: An Africa Showcase Application.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=2.18.6 <3.0.0'
+
+dependencies:
+  cupertino_icons: ^1.0.2
+  flutter:
+    sdk: flutter
+  flutter_launcher_icons: ^0.11.0
+  flutter_native_splash: ^2.2.14
+  google_fonts: ^3.0.1
+  page_transition: ^2.0.9
+  simple_ripple_animation: ^0.0.3
+
+dev_dependencies:
+  flutter_lints: ^2.0.0
+  flutter_test:
+    sdk: flutter
+
+# native splash screen
+flutter_native_splash:
+  image: "images/splash.png"
+  color: "#333333"
+  android_12:
+    image: "images/splash.png"
+    icon_background_color: "#333333"
+  fullscreen: true
+  android: true
+  ios: true
+
+# launcher icon
+flutter_icons:
+  ios: true
+  android: true
+  remove_alpha_ios: true
+  image_path: "images/launcher.png"
+  adaptive_icon_foreground: "images/launcher.png"
+  adaptive_icon_background: "#333333"
+
+flutter:
+  uses-material-design: true
+  assets:
+    - images/
