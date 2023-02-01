@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:heimat/ui/utils/colors.dart';
+import 'package:heimat/ui/widgets/animations/shapes/line.dart';
 
 class WonderScreen extends StatefulWidget {
   const WonderScreen({super.key, required this.width, required this.height});
@@ -112,6 +113,34 @@ class _WonderScreenState extends State<WonderScreen>
                 ],
               ),
             ),
+
+            // Lines Behind
+            Positioned(
+              top: ((height / 100) * 10) + 40,
+              left: ((width / 100) * 20) + 40,
+              child: CustomPaint(
+                painter: LinePainter1(),
+                child: SizedBox(width: width, height: height),
+              ),
+            ),
+            Positioned(
+              top: ((height / 100) * 25) + 40,
+              left: ((width / 100) * 20) + 40,
+              child: CustomPaint(
+                painter: LinePainter2(),
+                child: SizedBox(width: width, height: height),
+              ),
+            ),
+            Positioned(
+              top: ((height / 100) * 45) + 40,
+              left: ((width / 100) * 50) + 40,
+              child: CustomPaint(
+                painter: LinePainter3(),
+                child: SizedBox(width: width, height: height),
+              ),
+            ),
+
+            // info cards
             Positioned(
               top: (height / 100) * 10,
               right: (width / 100) * 10,
