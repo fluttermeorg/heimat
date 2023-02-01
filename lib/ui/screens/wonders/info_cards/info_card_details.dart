@@ -125,22 +125,34 @@ class _InfoCardDetailState extends State<InfoCardDetail> {
                 ),
               ),
               SliverToBoxAdapter(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
-                    Text("data"),
-                    SizedBox(height: 200),
-                    Text("data"),
-                    SizedBox(height: 200),
-                    Text("data"),
-                    SizedBox(height: 200),
-                    Text("data"),
-                    SizedBox(height: 200),
-                    Text("data"),
-                    SizedBox(height: 200),
-                    Text("data"),
-                    SizedBox(height: 200),
-                  ],
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                    vertical: height * 0.05,
+                    horizontal: width * 0.05,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        width: width * 0.80,
+                        child: const Text(
+                          "Aenean sollicitudin, quam in convallis egestas.",
+                          style: TextStyle(fontSize: 32),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      const Text(
+                        "Donec sollicitudin sodales suscipit. Nam ornare dignissim enim sit amet imperdiet. Maecenas odio augue, tempus ac consequat ut, ullamcorper vel dolor. Aliquam justo urna, rutrum consequat pellentesque id, commodo quis tortor. Donec ac rhoncus dolor.",
+                      ),
+                      const SizedBox(height: 20),
+                      const Text("data"),
+                      const SizedBox(height: 200),
+                      const Text("data"),
+                      const SizedBox(height: 200),
+                      const Text("data"),
+                      const SizedBox(height: 200),
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -233,13 +245,19 @@ class _InfoCardDetailState extends State<InfoCardDetail> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         IconButton(
-                          onPressed: () {},
+                          splashColor: transparent,
+                          highlightColor: transparent,
+                          onPressed: () {
+                            scrollCtr.jumpTo(height);
+                          },
                           icon: const Icon(
                             Icons.timeline_sharp,
-                            color: white,
+                            color: primary,
                           ),
                         ),
                         IconButton(
+                          splashColor: transparent,
+                          highlightColor: transparent,
                           onPressed: () {},
                           icon: const Icon(
                             Icons.filter_frames_rounded,
@@ -247,6 +265,8 @@ class _InfoCardDetailState extends State<InfoCardDetail> {
                           ),
                         ),
                         IconButton(
+                          splashColor: transparent,
+                          highlightColor: transparent,
                           onPressed: () {},
                           icon: const Icon(
                             Icons.link_rounded,
