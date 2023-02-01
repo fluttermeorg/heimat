@@ -20,7 +20,7 @@ List<Widget> drawerRoute({required height}) {
         ),
       ),
     ),
-    SizedBox(height: (height / 100) * 10),
+    SizedBox(height: height * 0.10),
     Center(
       child: RotatedBox(
         quarterTurns: -1,
@@ -38,7 +38,7 @@ List<Widget> drawerRoute({required height}) {
         ),
       ),
     ),
-    SizedBox(height: (height / 100) * 10),
+    SizedBox(height: height * 0.10),
     Center(
       child: RotatedBox(
         quarterTurns: -1,

@@ -6,8 +6,8 @@ class LinePainter1 extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     double width = size.width, height = size.height;
 
-    final start = Offset((width / 100) * 50, 0);
-    final end = Offset(0, (height / 100) * 15);
+    final start = Offset(width * 0.50, 0);
+    final end = Offset(0, height * 0.15);
 
     final paint = Paint()
       ..color = white
@@ -25,7 +25,7 @@ class LinePainter2 extends CustomPainter {
     double width = size.width, height = size.height;
 
     const start = Offset(0, 0);
-    final end = Offset((width / 100) * 30, (height / 100) * 20);
+    final end = Offset(width * 0.30, height * 0.20);
 
     final paint = Paint()
       ..color = white
@@ -43,7 +43,7 @@ class LinePainter3 extends CustomPainter {
     double width = size.width, height = size.height;
 
     const start = Offset(0, 0);
-    final end = Offset(-((width / 100) * 37), (height / 100) * 15);
+    final end = Offset(-(width * 0.37), height * 0.15);
 
     final paint = Paint()
       ..color = white

@@ -18,15 +18,14 @@ class _CusDrawerState extends State<CusDrawer> {
   @override
   Widget build(BuildContext context) {
     // parent size (device size)
-    double width = widget.width;
-    double height = widget.height;
+    double width = widget.width, height = widget.height;
 
     return Theme(
       data: Theme.of(context).copyWith(
         canvasColor: primary.withOpacity(0.80),
       ),
       child: Drawer(
-        width: (width / 100) * 25,
+        width: width * 0.25,
         elevation: 0,
         child: ClipRRect(
           child: BackdropFilter(
@@ -34,7 +33,7 @@ class _CusDrawerState extends State<CusDrawer> {
             child: Column(
               children: [
                 SizedBox(
-                  height: (height / 100) * 15,
+                  height: height * 0.15,
                   child: DrawerHeader(
                     padding: const EdgeInsets.all(10),
                     margin: EdgeInsets.zero,

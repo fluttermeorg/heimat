@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:heimat/ui/screens/wonders/info_cards/info_card.dart';
+import 'package:heimat/ui/screens/wonders/info_cards/info_card_details.dart';
 import 'package:heimat/ui/utils/colors.dart';
 import 'package:heimat/ui/widgets/animations/shapes/line.dart';
 
@@ -49,8 +51,7 @@ class _WonderScreenState extends State<WonderScreen>
   @override
   Widget build(BuildContext context) {
     // parent size (device size)
-    double width = widget.width;
-    double height = widget.height;
+    double width = widget.width, height = widget.height;
 
     return Column(
       children: [
@@ -72,7 +73,7 @@ class _WonderScreenState extends State<WonderScreen>
                     width: width,
                     height: height / 2,
                     alignment: Alignment.bottomCenter,
-                    padding: EdgeInsets.only(bottom: (height / 100) * 5),
+                    padding: EdgeInsets.only(bottom: height * 0.05),
                     decoration: BoxDecoration(
                       color: primary,
                       gradient: LinearGradient(
@@ -80,10 +81,10 @@ class _WonderScreenState extends State<WonderScreen>
                         end: Alignment.topCenter,
                         colors: [
                           primary,
-                          primary.withOpacity(.80),
-                          primary.withOpacity(.70),
-                          primary.withOpacity(.50),
-                          primary.withOpacity(.00),
+                          primary.withOpacity(.8),
+                          primary.withOpacity(.7),
+                          primary.withOpacity(.5),
+                          primary.withOpacity(.0),
                         ],
                       ),
                     ),
@@ -116,24 +117,24 @@ class _WonderScreenState extends State<WonderScreen>
 
             // Lines Behind
             Positioned(
-              top: ((height / 100) * 10) + 40,
-              left: ((width / 100) * 20) + 40,
+              top: (height * 0.10) + 40,
+              left: (width * 0.20) + 40,
               child: CustomPaint(
                 painter: LinePainter1(),
                 child: SizedBox(width: width, height: height),
               ),
             ),
             Positioned(
-              top: ((height / 100) * 25) + 40,
-              left: ((width / 100) * 20) + 40,
+              top: (height * 0.25) + 40,
+              left: (width * 0.20) + 40,
               child: CustomPaint(
                 painter: LinePainter2(),
                 child: SizedBox(width: width, height: height),
               ),
             ),
             Positioned(
-              top: ((height / 100) * 45) + 40,
-              left: ((width / 100) * 50) + 40,
+              top: (height * 0.45) + 40,
+              left: (width * 0.50) + 40,
               child: CustomPaint(
                 painter: LinePainter3(),
                 child: SizedBox(width: width, height: height),
@@ -141,85 +142,77 @@ class _WonderScreenState extends State<WonderScreen>
             ),
 
             // info cards
-            Positioned(
-              top: (height / 100) * 10,
-              right: (width / 100) * 10,
-              width: 80,
-              height: 80,
-              child: InkWell(
-                onTap: () {},
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: primary,
-                    shape: BoxShape.circle,
-                    border: Border.all(color: white, width: 2),
-                    image: const DecorationImage(
-                      image: AssetImage("images/victoria_falls3.png"),
-                      fit: BoxFit.cover,
+            InfoCard(
+              height: height,
+              width: width,
+              top: height * 0.10,
+              right: width * 0.10,
+              bgImage: "images/victoria_falls3.png",
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => InfoCardDetail(
+                      width: width,
+                      height: height,
+                      photo: "images/victoria_falls3.png",
                     ),
                   ),
-                ),
-              ),
+                );
+              },
             ),
-            Positioned(
-              top: (height / 100) * 25,
-              left: (width / 100) * 20,
-              width: 80,
-              height: 80,
-              child: InkWell(
-                onTap: () {},
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: primary,
-                    shape: BoxShape.circle,
-                    border: Border.all(color: white, width: 2),
-                    image: const DecorationImage(
-                      image: AssetImage("images/victoria_falls6.png"),
-                      fit: BoxFit.cover,
+            InfoCard(
+              height: height,
+              width: width,
+              top: height * 0.25,
+              left: width * 0.20,
+              bgImage: "images/victoria_falls6.png",
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => InfoCardDetail(
+                      width: width,
+                      height: height,
+                      photo: "images/victoria_falls6.png",
                     ),
                   ),
-                ),
-              ),
+                );
+              },
             ),
-            Positioned(
-              top: (height / 100) * 45,
-              right: (width / 100) * 30,
-              width: 80,
-              height: 80,
-              child: InkWell(
-                onTap: () {},
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: primary,
-                    shape: BoxShape.circle,
-                    border: Border.all(color: white, width: 2),
-                    image: const DecorationImage(
-                      image: AssetImage("images/victoria_falls10.png"),
-                      fit: BoxFit.cover,
+            InfoCard(
+              height: height,
+              width: width,
+              top: height * 0.45,
+              right: width * 0.30,
+              bgImage: "images/victoria_falls10.png",
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => InfoCardDetail(
+                      width: width,
+                      height: height,
+                      photo: "images/victoria_falls10.png",
                     ),
                   ),
-                ),
-              ),
+                );
+              },
             ),
-            Positioned(
-              top: (height / 100) * 60,
-              left: (width / 100) * 13,
-              width: 80,
-              height: 80,
-              child: InkWell(
-                onTap: () {},
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: primary,
-                    shape: BoxShape.circle,
-                    border: Border.all(color: white, width: 2),
-                    image: const DecorationImage(
-                      image: AssetImage("images/victoria_falls4.png"),
-                      fit: BoxFit.cover,
+            InfoCard(
+              height: height,
+              width: width,
+              top: height * 0.60,
+              left: width * 0.13,
+              bgImage: "images/victoria_falls4.png",
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => InfoCardDetail(
+                      width: width,
+                      height: height,
+                      photo: "images/victoria_falls4.png",
                     ),
                   ),
-                ),
-              ),
+                );
+              },
             ),
           ],
         ),
