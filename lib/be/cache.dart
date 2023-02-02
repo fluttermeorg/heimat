@@ -1,0 +1,25 @@
+import 'package:flutter/material.dart';
+
+List<ImageProvider<Object>> cacheImagesList = [
+  const AssetImage("images/onboard.png"),
+  const AssetImage("images/victoria_falls/victoria_falls.png"),
+  const AssetImage("images/victoria_falls/victoria_falls2.png"),
+  const AssetImage("images/victoria_falls/victoria_falls3.png"),
+  const AssetImage("images/victoria_falls/victoria_falls4.png"),
+  const AssetImage("images/victoria_falls/victoria_falls5.png"),
+  const AssetImage("images/victoria_falls/victoria_falls6.png"),
+  const AssetImage("images/victoria_falls/victoria_falls7.png"),
+  const AssetImage("images/victoria_falls/victoria_falls8.png"),
+  const AssetImage("images/victoria_falls/victoria_falls9.png"),
+  const AssetImage("images/victoria_falls/victoria_falls10.png"),
+  const AssetImage("images/victoria_falls/victoria_falls11.png"),
+  const AssetImage("images/victoria_falls/victoria_falls12.png"),
+  const AssetImage("images/victoria_falls/victoria_falls13.png"),
+  const AssetImage("images/victoria_falls/victoria_falls14.png"),
+  // AssetImage("images/victoria_falls/victoria_falls15.png"),
+  // AssetImage("images/victoria_falls/victoria_falls16.png"),
+  // AssetImage("images/victoria_falls/victoria_falls17.png"),
+  // AssetImage("images/victoria_falls/victoria_falls18.png"),
+  // AssetImage("images/victoria_falls/victoria_falls19.png"),
+  // AssetImage("images/victoria_falls/victoria_falls20.png"),
+];

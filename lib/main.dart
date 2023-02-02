@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:heimat/be/cache.dart';
 import 'package:heimat/ui/screens/onboard/onboard.dart';
 import 'package:heimat/ui/utils/colors.dart';
 
@@ -18,6 +19,11 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     // enable edge-To-Edge background
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+    
+    // caching images
+    for (var image in cacheImagesList) {
+      precacheImage(image, context);
+    }
 
     return MaterialApp(
       title: "Heimat",
