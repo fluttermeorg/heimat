@@ -1,9 +1,8 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:heimat/ui/utils/colors.dart';
 import 'package:heimat/ui/widgets/navigations/hero/photo_hero.dart';
 import 'package:heimat/ui/widgets/navigations/hero/photo_viewer.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class InfoCardDetail extends StatefulWidget {
   const InfoCardDetail({
@@ -24,6 +23,7 @@ class InfoCardDetail extends StatefulWidget {
 class _InfoCardDetailState extends State<InfoCardDetail> {
   int gRow1 = 0, gRow2 = 0, gRow3 = 0;
   double scrollPos = 0.0;
+  int stepperIndex = 0;
   late ScrollController scrollCtr;
 
   @override
@@ -57,175 +57,86 @@ class _InfoCardDetailState extends State<InfoCardDetail> {
             controller: scrollCtr,
             physics: const BouncingScrollPhysics(),
             slivers: [
-              SliverAppBar(
-                pinned: true,
-                stretch: true,
-                elevation: 0,
-                expandedHeight: height * 0.6,
-                automaticallyImplyLeading: false,
-                backgroundColor: transparent,
-                flexibleSpace: LayoutBuilder(
-                  builder: (context, constraints) {
-                    // get top of constraints (height)
-                    double top = constraints.biggest.height;
-
-                    return FlexibleSpaceBar(
-                      expandedTitleScale: 1,
-                      titlePadding: EdgeInsets.zero,
-                      title: Container(
-                        width: width,
-                        height: height * 0.30,
-                        padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.bottomCenter,
-                            end: Alignment.topCenter,
-                            colors: [
-                              top > 200 ? black.withOpacity(.5) : transparent,
-                              top > 200 ? black.withOpacity(.3) : transparent,
-                              top > 200 ? black.withOpacity(.0) : transparent,
-                            ],
-                          ),
-                        ),
-                        child: SizedBox(
-                          width: width * 0.80,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              if (top > 200)
-                                Flexible(
-                                  child: Text(
-                                    "Zimbabwe",
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w400,
-                                      color: white.withOpacity(0.8),
-                                    ),
-                                  ),
-                                ),
-                              if (top > 200) const SizedBox(height: 15),
-                              Flexible(
-                                child: Text(
-                                  "Victoria Falls",
-                                  style: TextStyle(
-                                    fontSize: top < 200 ? 24 : 52,
-                                    fontWeight: FontWeight.w400,
-                                    color: top <= 100 ? primary : white,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      background: PhotoHero(
-                        photo: photo,
-                        width: width,
-                      ),
-                    );
-                  },
-                ),
-              ),
+              appBar(width, height, photo),
               SliverToBoxAdapter(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Padding(
-                      padding: EdgeInsets.only(
-                        top: height * 0.05,
-                        left: width * 0.05,
-                        right: width * 0.05,
-                      ),
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            width: width * 0.80,
-                            child: const Text(
-                              "Aenean sollicitudin, quam in convallis egestas.",
-                              style: TextStyle(fontSize: 32),
-                            ),
-                          ),
-                          const SizedBox(height: 20),
-                          const Text(
-                            "Donec sollicitudin sodales suscipit. Nam ornare dignissim enim sit amet imperdiet. Maecenas odio augue, tempus ac consequat ut, ullamcorper vel dolor. Aliquam justo urna, rutrum consequat pellentesque id, commodo quis tortor. Donec ac rhoncus dolor.",
-                          ),
-                        ],
-                      ),
-                    ),
+                    header(width, height),
                     const SizedBox(height: 20),
                     imageGallery(height),
-                    const SizedBox(height: 200),
-                    const Text("data"),
-                    const SizedBox(height: 200),
-                    const Text("data"),
-                    const SizedBox(height: 200),
+                    const SizedBox(height: 20),
+                    content(width),
+                    const SizedBox(height: 20),
+                    citation(width),
                   ],
                 ),
               ),
+              SliverPadding(padding: EdgeInsets.only(bottom: height * 0.20))
             ],
           ),
-          if (scrollPos < 300)
-            Positioned(
-              top: height * 0.30,
-              right: 10,
-              width: width * 0.20,
-              height: height * 0.40,
-              child: Container(
-                padding: const EdgeInsets.all(5),
-                decoration: BoxDecoration(
-                  color: white,
-                  borderRadius: BorderRadius.circular(20),
+          if (scrollPos < 300) galleryOverhead(width, height, photo)
+        ],
+      ),
+    );
+  }
+
+  Widget appBar(width, height, photo) {
+    return SliverAppBar(
+      pinned: true,
+      stretch: true,
+      elevation: 0,
+      expandedHeight: height * 0.6,
+      automaticallyImplyLeading: false,
+      backgroundColor: scrollPos > height ? white : transparent,
+      flexibleSpace: LayoutBuilder(
+        builder: (context, constraints) {
+          // get top of constraints (height)
+          double top = constraints.biggest.height;
+
+          return FlexibleSpaceBar(
+            expandedTitleScale: 1,
+            titlePadding: EdgeInsets.zero,
+            title: Container(
+              width: width,
+              height: height * 0.30,
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.topCenter,
+                  colors: [
+                    top > 200 ? black.withOpacity(.5) : transparent,
+                    top > 200 ? black.withOpacity(.3) : transparent,
+                    top > 200 ? black.withOpacity(.0) : transparent,
+                  ],
                 ),
+              ),
+              child: SizedBox(
+                width: width * 0.80,
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(
-                      child: InkWell(
-                        onTap: () {
-                          setState(() => photo = "images/victoria_falls.png");
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            image: const DecorationImage(
-                              image: AssetImage("images/victoria_falls.png"),
-                              fit: BoxFit.cover,
-                            ),
+                    if (top > 200)
+                      Flexible(
+                        child: Text(
+                          "Zimbabwe",
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            color: white.withOpacity(0.8),
                           ),
                         ),
                       ),
-                    ),
-                    const SizedBox(height: 10),
-                    Expanded(
-                      child: InkWell(
-                        onTap: () {
-                          setState(() => photo = "images/victoria_falls2.png");
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            image: const DecorationImage(
-                              image: AssetImage("images/victoria_falls2.png"),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    Expanded(
-                      child: InkWell(
-                        onTap: () {
-                          setState(() => photo = "images/victoria_falls3.png");
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            image: const DecorationImage(
-                              image: AssetImage("images/victoria_falls3.png"),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
+                    if (top > 200) const SizedBox(height: 15),
+                    Flexible(
+                      child: Text(
+                        "Victoria Falls",
+                        style: TextStyle(
+                          fontSize: top < 200 ? 24 : 52,
+                          fontWeight: FontWeight.w400,
+                          color: top <= 100 ? primary : white,
                         ),
                       ),
                     ),
@@ -233,60 +144,33 @@ class _InfoCardDetailState extends State<InfoCardDetail> {
                 ),
               ),
             ),
-          if (scrollPos > 300)
-            Positioned(
-              bottom: height * 0.05,
-              left: 10,
-              right: 10,
-              child: ClipRRect(
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 1.5, sigmaY: 1.5),
-                  child: Container(
-                    padding: const EdgeInsets.all(10),
-                    width: width,
-                    height: height * 0.08,
-                    decoration: BoxDecoration(
-                      color: primary.withOpacity(0.5),
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        IconButton(
-                          splashColor: transparent,
-                          highlightColor: transparent,
-                          onPressed: () {
-                            scrollCtr.jumpTo(height);
-                          },
-                          icon: const Icon(
-                            Icons.timeline_sharp,
-                            color: white,
-                          ),
-                        ),
-                        IconButton(
-                          splashColor: transparent,
-                          highlightColor: transparent,
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.filter_frames_rounded,
-                            color: white,
-                          ),
-                        ),
-                        IconButton(
-                          splashColor: transparent,
-                          highlightColor: transparent,
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.link_rounded,
-                            color: white,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            )
+            background: PhotoHero(
+              photo: photo,
+              width: width,
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  Widget header(width, height) {
+    return Padding(
+      padding: EdgeInsets.only(
+        top: height * 0.05,
+        left: width * 0.05,
+        right: width * 0.05,
+      ),
+      child: Column(
+        children: const [
+          Text(
+            "Aenean sollicitudin, quam in convallis egestas.",
+            style: TextStyle(fontSize: 32),
+          ),
+          SizedBox(height: 20),
+          Text(
+            "Donec sollicitudin sodales suscipit. Nam ornare dignissim enim sit amet imperdiet. Maecenas odio augue, tempus ac consequat ut, ullamcorper vel dolor. Aliquam justo urna, rutrum consequat pellentesque id, commodo quis tortor. Donec ac rhoncus dolor.",
+          ),
         ],
       ),
     );
@@ -433,6 +317,128 @@ class _InfoCardDetailState extends State<InfoCardDetail> {
                 ),
               ),
             ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget galleryOverhead(width, height, photo) {
+    return Positioned(
+      top: height * 0.30,
+      right: 10,
+      width: width * 0.20,
+      height: height * 0.40,
+      child: Container(
+        padding: const EdgeInsets.all(5),
+        decoration: BoxDecoration(
+          color: white,
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Column(
+          children: [
+            Expanded(
+              child: InkWell(
+                onTap: () {
+                  setState(() => photo = "images/victoria_falls.png");
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    image: const DecorationImage(
+                      image: AssetImage("images/victoria_falls.png"),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 10),
+            Expanded(
+              child: InkWell(
+                onTap: () {
+                  setState(() => photo = "images/victoria_falls2.png");
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    image: const DecorationImage(
+                      image: AssetImage("images/victoria_falls2.png"),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 10),
+            Expanded(
+              child: InkWell(
+                onTap: () {
+                  setState(() => photo = "images/victoria_falls3.png");
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    image: const DecorationImage(
+                      image: AssetImage("images/victoria_falls3.png"),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget content(width) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: width * 0.05),
+      child: const Text(
+        "Donec sollicitudin sodales suscipit. Nam ornare dignissim enim sit amet imperdiet. Maecenas odio augue, tempus ac consequat ut, ullamcorper vel dolor. Aliquam justo urna, rutrum consequat pellentesque id, commodo quis tortor. Donec ac rhoncus dolor. Donec sollicitudin sodales suscipit. Nam ornare dignissim enim sit amet imperdiet. Maecenas odio augue, tempus ac consequat ut, ullamcorper vel dolor. Aliquam justo urna, rutrum consequat pellentesque id, commodo quis tortor. Donec ac rhoncus dolor.",
+      ),
+    );
+  }
+
+  Widget citation(width) {
+    final Uri url = Uri.parse('https://flutter.dev');
+
+    return Stepper(
+      physics: const BouncingScrollPhysics(),
+      currentStep: stepperIndex,
+      controlsBuilder: (context, _) => const SizedBox(),
+      onStepTapped: (int index) => setState(() => stepperIndex = index),
+      steps: [
+        Step(
+          isActive: stepperIndex == 0,
+          title: const Text("Citation 1"),
+          content: Align(
+            alignment: Alignment.centerLeft,
+            child: GestureDetector(
+              onTap: () async {
+                if (!await launchUrl(url)) {
+                  throw Exception('Could not launch $url');
+                }
+              },
+              child: const Text("https://flutter.dev"),
+            ),
+          ),
+        ),
+        Step(
+          isActive: stepperIndex == 1,
+          title: const Text("Citation 2"),
+          content: Align(
+            alignment: Alignment.centerLeft,
+            child: GestureDetector(
+              onTap: () async {
+                if (!await launchUrl(url)) {
+                  throw Exception('Could not launch $url');
+                }
+              },
+              child: const Text("https://flutter.dev"),
+            ),
           ),
         ),
       ],

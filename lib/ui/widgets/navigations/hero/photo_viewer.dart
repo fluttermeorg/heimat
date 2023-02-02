@@ -10,7 +10,6 @@ class PhotoViewer extends StatelessWidget {
   Widget build(BuildContext context) {
     // device sizes
     final width = MediaQuery.of(context).size.width;
-    final height = MediaQuery.of(context).size.height;
 
     return Material(
       child: SizedBox(
@@ -21,7 +20,7 @@ class PhotoViewer extends StatelessWidget {
               imageProvider: AssetImage(photo),
             ),
             Positioned(
-               bottom: width * 0.15,
+              bottom: width * 0.15,
               right: 20,
               child: InkWell(
                 highlightColor: transparent,
@@ -40,7 +39,7 @@ class PhotoViewer extends StatelessWidget {
                 ),
               ),
             ),
-    ],
+          ],
         ),
       ),
     );
