@@ -14,7 +14,11 @@ dependencies:
   flutter_native_splash: ^2.2.14
   google_fonts: ^3.0.1
   page_transition: ^2.0.9
+  path_drawing: ^1.0.1
+  photo_view: ^0.14.0
   simple_ripple_animation: ^0.0.3
+  url_launcher: ^6.1.8
+  uuid: ^3.0.7
 
 dev_dependencies:
   flutter_lints: ^2.0.0
@@ -23,10 +27,10 @@ dev_dependencies:
 
 # native splash screen
 flutter_native_splash:
-  image: "images/splash.png"
+  image: "images/logos/splash.png"
   color: "#333333"
   android_12:
-    image: "images/splash.png"
+    image: "images/logos/splash.png"
     icon_background_color: "#333333"
   fullscreen: true
   android: true
@@ -37,11 +41,13 @@ flutter_icons:
   ios: true
   android: true
   remove_alpha_ios: true
-  image_path: "images/launcher.png"
-  adaptive_icon_foreground: "images/launcher.png"
+  image_path: "images/logos/launcher.png"
+  adaptive_icon_foreground: "images/logos/launcher.png"
   adaptive_icon_background: "#333333"
 
 flutter:
   uses-material-design: true
   assets:
     - images/
+    - images/logos/
+    - images/victoria_falls/

@@ -25,7 +25,7 @@ class OnBoardScreen extends StatelessWidget {
             padding: const EdgeInsets.all(10),
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("images/victoria_falls.png"),
+                image: AssetImage("images/onboard.png"),
                 fit: BoxFit.cover,
               ),
             ),
@@ -54,7 +54,7 @@ class OnBoardScreen extends StatelessWidget {
                   child: Container(
                     width: width,
                     alignment: Alignment.bottomCenter,
-                    margin: EdgeInsets.only(bottom: (height / 100) * 3),
+                    margin: EdgeInsets.only(bottom: height * 0.03),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
@@ -78,8 +78,10 @@ class OnBoardScreen extends StatelessWidget {
                                   width: 150,
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
-                                    border:
-                                        Border.all(color: primary, width: 2),
+                                    border: Border.all(
+                                      color: primary,
+                                      width: 2,
+                                    ),
                                   ),
                                 ),
                                 RippleAnimation(
