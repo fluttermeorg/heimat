@@ -2,7 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:heimat/ui/utils/colors.dart';
-import 'package:heimat/ui/widgets/navigations/hero.dart';
+import 'package:heimat/ui/widgets/navigations/hero/photo_hero.dart';
+import 'package:heimat/ui/widgets/navigations/hero/photo_viewer.dart';
 
 class InfoCardDetail extends StatefulWidget {
   const InfoCardDetail({
@@ -21,6 +22,7 @@ class InfoCardDetail extends StatefulWidget {
 }
 
 class _InfoCardDetailState extends State<InfoCardDetail> {
+  int gRow1 = 0, gRow2 = 0, gRow3 = 0;
   double scrollPos = 0.0;
   late ScrollController scrollCtr;
 
@@ -28,6 +30,7 @@ class _InfoCardDetailState extends State<InfoCardDetail> {
   void initState() {
     super.initState();
     listenToScroll();
+    getGallerySize();
   }
 
   void listenToScroll() {
@@ -125,34 +128,39 @@ class _InfoCardDetailState extends State<InfoCardDetail> {
                 ),
               ),
               SliverToBoxAdapter(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    vertical: height * 0.05,
-                    horizontal: width * 0.05,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        width: width * 0.80,
-                        child: const Text(
-                          "Aenean sollicitudin, quam in convallis egestas.",
-                          style: TextStyle(fontSize: 32),
-                        ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(
+                        top: height * 0.05,
+                        left: width * 0.05,
+                        right: width * 0.05,
                       ),
-                      const SizedBox(height: 20),
-                      const Text(
-                        "Donec sollicitudin sodales suscipit. Nam ornare dignissim enim sit amet imperdiet. Maecenas odio augue, tempus ac consequat ut, ullamcorper vel dolor. Aliquam justo urna, rutrum consequat pellentesque id, commodo quis tortor. Donec ac rhoncus dolor.",
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            width: width * 0.80,
+                            child: const Text(
+                              "Aenean sollicitudin, quam in convallis egestas.",
+                              style: TextStyle(fontSize: 32),
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          const Text(
+                            "Donec sollicitudin sodales suscipit. Nam ornare dignissim enim sit amet imperdiet. Maecenas odio augue, tempus ac consequat ut, ullamcorper vel dolor. Aliquam justo urna, rutrum consequat pellentesque id, commodo quis tortor. Donec ac rhoncus dolor.",
+                          ),
+                        ],
                       ),
-                      const SizedBox(height: 20),
-                      const Text("data"),
-                      const SizedBox(height: 200),
-                      const Text("data"),
-                      const SizedBox(height: 200),
-                      const Text("data"),
-                      const SizedBox(height: 200),
-                    ],
-                  ),
+                    ),
+                    const SizedBox(height: 20),
+                    imageGallery(height),
+                    const SizedBox(height: 200),
+                    const Text("data"),
+                    const SizedBox(height: 200),
+                    const Text("data"),
+                    const SizedBox(height: 200),
+                  ],
                 ),
               ),
             ],
@@ -252,7 +260,7 @@ class _InfoCardDetailState extends State<InfoCardDetail> {
                           },
                           icon: const Icon(
                             Icons.timeline_sharp,
-                            color: primary,
+                            color: white,
                           ),
                         ),
                         IconButton(
@@ -261,7 +269,7 @@ class _InfoCardDetailState extends State<InfoCardDetail> {
                           onPressed: () {},
                           icon: const Icon(
                             Icons.filter_frames_rounded,
-                            color: primary,
+                            color: white,
                           ),
                         ),
                         IconButton(
@@ -270,7 +278,7 @@ class _InfoCardDetailState extends State<InfoCardDetail> {
                           onPressed: () {},
                           icon: const Icon(
                             Icons.link_rounded,
-                            color: primary,
+                            color: white,
                           ),
                         ),
                       ],
@@ -281,6 +289,153 @@ class _InfoCardDetailState extends State<InfoCardDetail> {
             )
         ],
       ),
+    );
+  }
+
+  void getGallerySize() {
+    List imgSizeRange = List.generate(10 - 5 + 1, (i) => i + 5);
+
+    gRow1 = (imgSizeRange..shuffle()).first;
+    gRow2 = (imgSizeRange..shuffle()).indexOf(4);
+    gRow3 = (imgSizeRange..shuffle()).last;
+  }
+
+  Widget imageGallery(height) {
+    return Column(
+      children: [
+        SizedBox(
+          height: height * 0.15,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Expanded(
+                flex: gRow1,
+                child: InkWell(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const PhotoViewer(
+                          photo: "images/victoria_falls3.png",
+                        ),
+                      ),
+                    );
+                  },
+                  child: const PhotoHero(
+                    photo: "images/victoria_falls3.png",
+                    width: 100,
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 10 - gRow1,
+                child: InkWell(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const PhotoViewer(
+                          photo: "images/victoria_falls5.png",
+                        ),
+                      ),
+                    );
+                  },
+                  child: const PhotoHero(
+                    photo: "images/victoria_falls5.png",
+                    width: 100,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        SizedBox(
+          height: height * 0.15,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Expanded(
+                flex: gRow2,
+                child: InkWell(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const PhotoViewer(
+                          photo: "images/victoria_falls6.png",
+                        ),
+                      ),
+                    );
+                  },
+                  child: const PhotoHero(
+                    photo: "images/victoria_falls6.png",
+                    width: 100,
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 10 - gRow2,
+                child: InkWell(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const PhotoViewer(
+                          photo: "images/victoria_falls7.png",
+                        ),
+                      ),
+                    );
+                  },
+                  child: const PhotoHero(
+                    photo: "images/victoria_falls7.png",
+                    width: 100,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        SizedBox(
+          height: height * 0.15,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Expanded(
+                flex: gRow3,
+                child: InkWell(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const PhotoViewer(
+                          photo: "images/victoria_falls8.png",
+                        ),
+                      ),
+                    );
+                  },
+                  child: const PhotoHero(
+                    photo: "images/victoria_falls8.png",
+                    width: 100,
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 10 - gRow3,
+                child: InkWell(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const PhotoViewer(
+                          photo: "images/victoria_falls9.png",
+                        ),
+                      ),
+                    );
+                  },
+                  child: const PhotoHero(
+                    photo: "images/victoria_falls9.png",
+                    width: 100,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
