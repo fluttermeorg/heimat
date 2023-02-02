@@ -38,7 +38,7 @@ class _CusDrawerState extends State<CusDrawer> {
                     padding: const EdgeInsets.all(10),
                     margin: EdgeInsets.zero,
                     child: Image.asset(
-                      "images/logo_2_trans.png",
+                      "images/logos/logo_2_trans.png",
                       fit: BoxFit.cover,
                     ),
                   ),

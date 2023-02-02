@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:heimat/be/db.dart';
 import 'package:heimat/ui/screens/wonders/wonder.dart';
 import 'package:heimat/ui/utils/colors.dart';
 import 'package:heimat/ui/utils/status_bar_style.dart';
@@ -32,12 +33,16 @@ class _HomeScreenState extends State<HomeScreen> {
           shadowColor: transparent,
           leading: IconButton(
             onPressed: () => scaffoldKey.currentState?.openDrawer(),
-            icon: Image.asset("images/drawer.png"),
+            icon: Image.asset("images/logos/drawer.png"),
           ),
         ),
         drawer: CusDrawer(width: width, height: height),
         body: SingleChildScrollView(
-          child: WonderScreen(width: width, height: height),
+          child: WonderScreen(
+            width: width,
+            height: height,
+            wonder: WondersDB.victoriaFalls,
+          ),
         ),
       ),
     );

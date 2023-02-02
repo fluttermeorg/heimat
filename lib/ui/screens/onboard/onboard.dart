@@ -25,7 +25,7 @@ class OnBoardScreen extends StatelessWidget {
             padding: const EdgeInsets.all(10),
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("images/victoria_falls.png"),
+                image: AssetImage("images/onboard.png"),
                 fit: BoxFit.cover,
               ),
             ),

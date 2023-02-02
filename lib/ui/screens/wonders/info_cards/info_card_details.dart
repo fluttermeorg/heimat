@@ -7,14 +7,18 @@ import 'package:url_launcher/url_launcher.dart';
 class InfoCardDetail extends StatefulWidget {
   const InfoCardDetail({
     super.key,
+    required this.index,
     required this.width,
     required this.height,
     required this.photo,
+    required this.wonder,
   });
 
+  final int index;
   final double width;
   final double height;
   final String photo;
+  final Map wonder;
 
   @override
   State<InfoCardDetail> createState() => _InfoCardDetailState();
@@ -24,6 +28,11 @@ class _InfoCardDetailState extends State<InfoCardDetail> {
   int gRow1 = 0, gRow2 = 0, gRow3 = 0;
   double scrollPos = 0.0;
   int stepperIndex = 0;
+  String y = "1";
+  late int index = widget.index;
+  late String photo = widget.photo;
+  late Map wonder = widget.wonder;
+
   late ScrollController scrollCtr;
 
   @override
@@ -45,9 +54,6 @@ class _InfoCardDetailState extends State<InfoCardDetail> {
     // parent size (device size)
     double width = widget.width, height = widget.height;
 
-    // getting data
-    String photo = widget.photo;
-
     return Scaffold(
       backgroundColor: white,
       extendBodyBehindAppBar: true,
@@ -57,7 +63,7 @@ class _InfoCardDetailState extends State<InfoCardDetail> {
             controller: scrollCtr,
             physics: const BouncingScrollPhysics(),
             slivers: [
-              appBar(width, height, photo),
+              appBar(width, height),
               SliverToBoxAdapter(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -72,16 +78,16 @@ class _InfoCardDetailState extends State<InfoCardDetail> {
                   ],
                 ),
               ),
-              SliverPadding(padding: EdgeInsets.only(bottom: height * 0.20))
+              SliverPadding(padding: EdgeInsets.only(bottom: height * 0.10))
             ],
           ),
-          if (scrollPos < 300) galleryOverhead(width, height, photo)
+          if (scrollPos < 300) galleryOverhead(width, height)
         ],
       ),
     );
   }
 
-  Widget appBar(width, height, photo) {
+  Widget appBar(width, height) {
     return SliverAppBar(
       pinned: true,
       stretch: true,
@@ -121,7 +127,7 @@ class _InfoCardDetailState extends State<InfoCardDetail> {
                     if (top > 200)
                       Flexible(
                         child: Text(
-                          "Zimbabwe",
+                          wonder["country"],
                           style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w400,
@@ -132,7 +138,7 @@ class _InfoCardDetailState extends State<InfoCardDetail> {
                     if (top > 200) const SizedBox(height: 15),
                     Flexible(
                       child: Text(
-                        "Victoria Falls",
+                        wonder["infos"]["info$index"]["title"],
                         style: TextStyle(
                           fontSize: top < 200 ? 24 : 52,
                           fontWeight: FontWeight.w400,
@@ -162,15 +168,13 @@ class _InfoCardDetailState extends State<InfoCardDetail> {
         right: width * 0.05,
       ),
       child: Column(
-        children: const [
+        children: [
           Text(
-            "Aenean sollicitudin, quam in convallis egestas.",
-            style: TextStyle(fontSize: 32),
+            wonder["infos"]["info$index"]["subtitle"],
+            style: const TextStyle(fontSize: 32),
           ),
-          SizedBox(height: 20),
-          Text(
-            "Donec sollicitudin sodales suscipit. Nam ornare dignissim enim sit amet imperdiet. Maecenas odio augue, tempus ac consequat ut, ullamcorper vel dolor. Aliquam justo urna, rutrum consequat pellentesque id, commodo quis tortor. Donec ac rhoncus dolor.",
-          ),
+          const SizedBox(height: 20),
+          Text(wonder["infos"]["info$index"]["paragraph"]),
         ],
       ),
     );
@@ -198,14 +202,14 @@ class _InfoCardDetailState extends State<InfoCardDetail> {
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => const PhotoViewer(
-                          photo: "images/victoria_falls3.png",
+                        builder: (context) => PhotoViewer(
+                          photo: wonder["images"]["img9"],
                         ),
                       ),
                     );
                   },
-                  child: const PhotoHero(
-                    photo: "images/victoria_falls3.png",
+                  child: PhotoHero(
+                    photo: wonder["images"]["img9"],
                     width: 100,
                   ),
                 ),
@@ -216,14 +220,14 @@ class _InfoCardDetailState extends State<InfoCardDetail> {
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => const PhotoViewer(
-                          photo: "images/victoria_falls5.png",
+                        builder: (context) => PhotoViewer(
+                          photo: wonder["images"]["img10"],
                         ),
                       ),
                     );
                   },
-                  child: const PhotoHero(
-                    photo: "images/victoria_falls5.png",
+                  child: PhotoHero(
+                    photo: wonder["images"]["img10"],
                     width: 100,
                   ),
                 ),
@@ -242,14 +246,14 @@ class _InfoCardDetailState extends State<InfoCardDetail> {
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => const PhotoViewer(
-                          photo: "images/victoria_falls6.png",
+                        builder: (context) => PhotoViewer(
+                          photo: wonder["images"]["img11"],
                         ),
                       ),
                     );
                   },
-                  child: const PhotoHero(
-                    photo: "images/victoria_falls6.png",
+                  child: PhotoHero(
+                    photo: wonder["images"]["img11"],
                     width: 100,
                   ),
                 ),
@@ -260,14 +264,14 @@ class _InfoCardDetailState extends State<InfoCardDetail> {
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => const PhotoViewer(
-                          photo: "images/victoria_falls7.png",
+                        builder: (context) => PhotoViewer(
+                          photo: wonder["images"]["img12"],
                         ),
                       ),
                     );
                   },
-                  child: const PhotoHero(
-                    photo: "images/victoria_falls7.png",
+                  child: PhotoHero(
+                    photo: wonder["images"]["img12"],
                     width: 100,
                   ),
                 ),
@@ -286,14 +290,14 @@ class _InfoCardDetailState extends State<InfoCardDetail> {
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => const PhotoViewer(
-                          photo: "images/victoria_falls8.png",
+                        builder: (context) => PhotoViewer(
+                          photo: wonder["images"]["img13"],
                         ),
                       ),
                     );
                   },
-                  child: const PhotoHero(
-                    photo: "images/victoria_falls8.png",
+                  child: PhotoHero(
+                    photo: wonder["images"]["img13"],
                     width: 100,
                   ),
                 ),
@@ -304,14 +308,14 @@ class _InfoCardDetailState extends State<InfoCardDetail> {
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => const PhotoViewer(
-                          photo: "images/victoria_falls9.png",
+                        builder: (context) => PhotoViewer(
+                          photo: wonder["images"]["img14"],
                         ),
                       ),
                     );
                   },
-                  child: const PhotoHero(
-                    photo: "images/victoria_falls9.png",
+                  child: PhotoHero(
+                    photo: wonder["images"]["img14"],
                     width: 100,
                   ),
                 ),
@@ -323,7 +327,8 @@ class _InfoCardDetailState extends State<InfoCardDetail> {
     );
   }
 
-  Widget galleryOverhead(width, height, photo) {
+  Widget galleryOverhead(width, height) {
+    List overheads = [6, 7, 8];
     return Positioned(
       top: height * 0.30,
       right: 10,
@@ -337,56 +342,28 @@ class _InfoCardDetailState extends State<InfoCardDetail> {
         ),
         child: Column(
           children: [
-            Expanded(
-              child: InkWell(
-                onTap: () {
-                  setState(() => photo = "images/victoria_falls.png");
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    image: const DecorationImage(
-                      image: AssetImage("images/victoria_falls.png"),
-                      fit: BoxFit.cover,
+            for (var overhead in overheads)
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.only(
+                    bottom: overheads.last == overhead ? 0 : 10,
+                  ),
+                  child: InkWell(
+                    onTap: () {
+                      setState(() => photo = wonder["images"]["img$overhead"]);
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        image: DecorationImage(
+                          image: AssetImage(wonder["images"]["img$overhead"]),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-            const SizedBox(height: 10),
-            Expanded(
-              child: InkWell(
-                onTap: () {
-                  setState(() => photo = "images/victoria_falls2.png");
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    image: const DecorationImage(
-                      image: AssetImage("images/victoria_falls2.png"),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 10),
-            Expanded(
-              child: InkWell(
-                onTap: () {
-                  setState(() => photo = "images/victoria_falls3.png");
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    image: const DecorationImage(
-                      image: AssetImage("images/victoria_falls3.png"),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-              ),
-            ),
           ],
         ),
       ),
@@ -396,14 +373,13 @@ class _InfoCardDetailState extends State<InfoCardDetail> {
   Widget content(width) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: width * 0.05),
-      child: const Text(
-        "Donec sollicitudin sodales suscipit. Nam ornare dignissim enim sit amet imperdiet. Maecenas odio augue, tempus ac consequat ut, ullamcorper vel dolor. Aliquam justo urna, rutrum consequat pellentesque id, commodo quis tortor. Donec ac rhoncus dolor. Donec sollicitudin sodales suscipit. Nam ornare dignissim enim sit amet imperdiet. Maecenas odio augue, tempus ac consequat ut, ullamcorper vel dolor. Aliquam justo urna, rutrum consequat pellentesque id, commodo quis tortor. Donec ac rhoncus dolor.",
-      ),
+      child: Text(wonder["infos"]["info$index"]["content"]),
     );
   }
 
   Widget citation(width) {
-    final Uri url = Uri.parse('https://flutter.dev');
+    // citations from db
+    List citations = wonder["citations"];
 
     return Stepper(
       physics: const BouncingScrollPhysics(),
@@ -411,36 +387,23 @@ class _InfoCardDetailState extends State<InfoCardDetail> {
       controlsBuilder: (context, _) => const SizedBox(),
       onStepTapped: (int index) => setState(() => stepperIndex = index),
       steps: [
-        Step(
-          isActive: stepperIndex == 0,
-          title: const Text("Citation 1"),
-          content: Align(
-            alignment: Alignment.centerLeft,
-            child: GestureDetector(
-              onTap: () async {
-                if (!await launchUrl(url)) {
-                  throw Exception('Could not launch $url');
-                }
-              },
-              child: const Text("https://flutter.dev"),
+        for (String cit in citations)
+          Step(
+            isActive: stepperIndex == citations.indexOf(cit),
+            title: Text("Citation ${citations.indexOf(cit) + 1}"),
+            content: Align(
+              alignment: Alignment.centerLeft,
+              child: GestureDetector(
+                onTap: () async {
+                  final Uri url = Uri.parse(cit);
+                  if (!await launchUrl(url)) {
+                    throw Exception('Could not launch $url');
+                  }
+                },
+                child: Text(cit),
+              ),
             ),
           ),
-        ),
-        Step(
-          isActive: stepperIndex == 1,
-          title: const Text("Citation 2"),
-          content: Align(
-            alignment: Alignment.centerLeft,
-            child: GestureDetector(
-              onTap: () async {
-                if (!await launchUrl(url)) {
-                  throw Exception('Could not launch $url');
-                }
-              },
-              child: const Text("https://flutter.dev"),
-            ),
-          ),
-        ),
       ],
     );
   }

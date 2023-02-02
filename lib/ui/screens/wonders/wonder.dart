@@ -5,10 +5,16 @@ import 'package:heimat/ui/utils/colors.dart';
 import 'package:heimat/ui/widgets/animations/shapes/line.dart';
 
 class WonderScreen extends StatefulWidget {
-  const WonderScreen({super.key, required this.width, required this.height});
+  const WonderScreen({
+    super.key,
+    required this.width,
+    required this.height,
+    required this.wonder,
+  });
 
   final double width;
   final double height;
+  final Map wonder;
 
   @override
   State<WonderScreen> createState() => _WonderScreenState();
@@ -53,6 +59,8 @@ class _WonderScreenState extends State<WonderScreen>
     // parent size (device size)
     double width = widget.width, height = widget.height;
 
+    Map wonder = widget.wonder;
+
     return Column(
       children: [
         Stack(
@@ -60,9 +68,9 @@ class _WonderScreenState extends State<WonderScreen>
             Container(
               width: width,
               height: height,
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage("images/victoria_falls2.png"),
+                  image: AssetImage(wonder["images"]["img1"]),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -91,9 +99,9 @@ class _WonderScreenState extends State<WonderScreen>
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        const Text(
-                          "Victoria Falls",
-                          style: TextStyle(
+                        Text(
+                          wonder["wonder"],
+                          style: const TextStyle(
                             color: secondary,
                             fontSize: 52,
                             fontWeight: FontWeight.w400,
@@ -147,14 +155,16 @@ class _WonderScreenState extends State<WonderScreen>
               width: width,
               top: height * 0.10,
               right: width * 0.10,
-              bgImage: "images/victoria_falls3.png",
+              bgImage: wonder["images"]["img2"],
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) => InfoCardDetail(
+                      index: 1,
                       width: width,
                       height: height,
-                      photo: "images/victoria_falls3.png",
+                      photo: wonder["images"]["img2"],
+                      wonder: wonder,
                     ),
                   ),
                 );
@@ -165,14 +175,16 @@ class _WonderScreenState extends State<WonderScreen>
               width: width,
               top: height * 0.25,
               left: width * 0.20,
-              bgImage: "images/victoria_falls6.png",
+              bgImage: wonder["images"]["img3"],
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) => InfoCardDetail(
+                      index: 2,
                       width: width,
                       height: height,
-                      photo: "images/victoria_falls6.png",
+                      photo: wonder["images"]["img3"],
+                      wonder: wonder,
                     ),
                   ),
                 );
@@ -183,14 +195,16 @@ class _WonderScreenState extends State<WonderScreen>
               width: width,
               top: height * 0.45,
               right: width * 0.30,
-              bgImage: "images/victoria_falls10.png",
+              bgImage: wonder["images"]["img4"],
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) => InfoCardDetail(
+                      index: 3,
                       width: width,
                       height: height,
-                      photo: "images/victoria_falls10.png",
+                      photo: wonder["images"]["img4"],
+                      wonder: wonder,
                     ),
                   ),
                 );
@@ -201,14 +215,16 @@ class _WonderScreenState extends State<WonderScreen>
               width: width,
               top: height * 0.60,
               left: width * 0.13,
-              bgImage: "images/victoria_falls4.png",
+              bgImage: wonder["images"]["img5"],
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) => InfoCardDetail(
+                      index: 4,
                       width: width,
                       height: height,
-                      photo: "images/victoria_falls4.png",
+                      photo: wonder["images"]["img5"],
+                      wonder: wonder,
                     ),
                   ),
                 );
